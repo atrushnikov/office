@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="uuid_gen_1" value="UUID_TO_BIN('1392bd54-5905-11e9-b572-0242ac130002', true)"  dbms="mysql"/>
+    <property name="uuid_gen_2" value="UUID_TO_BIN('27bf0237-5934-11e9-b572-0242ac130002', true)"  dbms="mysql"/>
+    <property name="uuid_gen_3" value="UUID_TO_BIN('60f76a5f-5934-11e9-b572-0242ac130002', true)"  dbms="mysql"/>
+    <property name="uuid_gen_4" value="UUID_TO_BIN('8a0be692-5934-11e9-b572-0242ac130002', true)"  dbms="mysql"/>
+    <property name="uuid_gen_5" value="UUID_TO_BIN('f57966ad-5934-11e9-b572-0242ac130002', true)"  dbms="mysql"/>
+
+    <changeSet id="8" author="alex">
+        <insert tableName="department">
+            <column name="id" valueComputed="${uuid_gen_1}" />
+            <column name="name" value="Миграционная полиция"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" valueComputed="${uuid_gen_2}"/>
+            <column name="name" value="Росреестр"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" valueComputed="${uuid_gen_3}"/>
+            <column name="name" value="ЖКХ"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" valueComputed="${uuid_gen_4}"/>
+            <column name="name" value="Паспортный стол"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" valueComputed="${uuid_gen_5}"/>
+            <column name="name" value="Пенсионный фонд"/>
+        </insert>
+    </changeSet>
+    
+</databaseChangeLog>

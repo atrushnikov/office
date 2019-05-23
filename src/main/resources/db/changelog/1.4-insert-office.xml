@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="uuid_gen" value="UUID_TO_BIN(uuid(), true)" dbms="mysql"/>
+
+    <changeSet id="9" author="alex">
+        <insert tableName="office">
+            <column name="id" valueComputed="${uuid_gen}"/>
+            <column name="city" value="Москва"/>
+            <column name="address" value="ул. Каргопольская д.9"/>
+            <column name="office_category_id" value="4"/>
+            <column name="office_property_type_id" value="1"/>
+            <column name="value" value="115000000"/>
+        </insert>
+        <insert tableName="office">
+            <column name="id" valueComputed="${uuid_gen}"/>
+            <column name="city" value="Москва"/>
+            <column name="address" value="ул. Мира д.15"/>
+            <column name="office_category_id" value="3"/>
+            <column name="office_property_type_id" value="2"/>
+            <column name="value" value="155000000"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

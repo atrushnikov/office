@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="5" author="alex">
+
+        <createTable tableName="office_department">
+            <column name="id" type="int">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="department_id" type="binary(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="office_id" type="binary(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="office_category" columnName="id" incrementBy="1" columnDataType="int"/>
+
+        <addForeignKeyConstraint baseTableName="office_department"
+                                 baseColumnNames="department_id"
+                                 constraintName="fk_department-office"
+                                 referencedTableName="department"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="office_department"
+                                 baseColumnNames="office_id"
+                                 constraintName="fk_office-department"
+                                 referencedTableName="office"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
+
