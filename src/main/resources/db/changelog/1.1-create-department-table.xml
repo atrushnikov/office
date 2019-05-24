@@ -7,7 +7,7 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="3" author="alex">
-        <createTable tableName="department" remarks="A table to contain all departments">
+        <createTable tableName="department" remarks="The table contains all departments">
             <column name="id" type="binary(16)">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
