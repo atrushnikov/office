@@ -7,16 +7,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Data
-@Entity(name = "officeCategory")
-@Table(name = "office_category")
-public class OfficeCategoryEntity {
+public class OfficePropertyTypeDto {
 
-    public OfficeCategoryEntity() {
+    public OfficePropertyTypeDto() {
     }
 
-    @Id
     private Long id;
 
     private String name;
 
+    @Override
+    public String toString() {
+        return "\t\tid : " + id + "\n" + "\t\tname : " + name;
+    }
 }

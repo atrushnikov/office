@@ -2,6 +2,7 @@ package ru.office.configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.util.StringUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -91,6 +92,11 @@ public class AppConfig {
         JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(emf);
         return txManager;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
 }

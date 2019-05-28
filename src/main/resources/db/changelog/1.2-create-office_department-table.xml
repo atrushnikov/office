@@ -9,7 +9,7 @@
     <changeSet id="5" author="alex">
 
         <createTable tableName="office_department">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true" incrementBy="1" startWith="0">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
             <column name="department_id" type="binary(16)">
@@ -19,7 +19,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement tableName="office_category" columnName="id" incrementBy="1" columnDataType="int"/>
 
         <addForeignKeyConstraint baseTableName="office_department"
                                  baseColumnNames="department_id"

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="uuid_gen" value="UUID_TO_BIN(uuid(), true)" dbms="mysql"/>
+    <property name="department_id_1" value="UUID_TO_BIN('1392bd54-5905-11e9-b572-0242ac130002', true)"  dbms="mysql"/>
+    <property name="department_id_2" value="UUID_TO_BIN('27bf0237-5934-11e9-b572-0242ac130002', true)"  dbms="mysql"/>
+    <property name="department_id_3" value="UUID_TO_BIN('60f76a5f-5934-11e9-b572-0242ac130002', true)"  dbms="mysql"/>
+    <property name="department_id_4" value="UUID_TO_BIN('8a0be692-5934-11e9-b572-0242ac130002', true)"  dbms="mysql"/>
+    <property name="department_id_5" value="UUID_TO_BIN('f08b484b-8118-11e9-b7a1-0242ac120002', true)"  dbms="mysql"/>
+    <property name="office_id_1" value="UUID_TO_BIN('ac6a0d60-810c-11e9-baee-0242ac120002', true)" dbms="mysql"/>
+    <property name="office_id_2" value="UUID_TO_BIN('3fe14602-810d-11e9-baee-0242ac120002', true)" dbms="mysql"/>
+
+    <changeSet id="8" author="alex">
+        <insert tableName="department">
+            <column name="id" valueComputed="${department_id_1}" />
+            <column name="name" value="Миграционная полиция"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" valueComputed="${department_id_2}"/>
+            <column name="name" value="Росреестр"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" valueComputed="${department_id_3}"/>
+            <column name="name" value="ЖКХ"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" valueComputed="${department_id_4}"/>
+            <column name="name" value="Паспортный стол"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" valueComputed="${department_id_5}"/>
+            <column name="name" value="Пенсионный фонд"/>
+        </insert>
+
+        <insert tableName="office">
+            <column name="id" valueComputed="${office_id_1}"/>
+            <column name="city" value="Москва"/>
+            <column name="address" value="ул. Каргопольская д.9"/>
+            <column name="office_category_id" value="4"/>
+            <column name="office_property_type_id" value="1"/>
+            <column name="value" value="115000000"/>
+        </insert>
+        <insert tableName="office">
+            <column name="id" valueComputed="${office_id_2}"/>
+            <column name="city" value="Москва"/>
+            <column name="address" value="ул. Мира д.15"/>
+            <column name="office_category_id" value="3"/>
+            <column name="office_property_type_id" value="2"/>
+            <column name="value" value="155000000"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="9" author="alex">
+        <insert tableName="office_department">
+            <column name="department_id" valueComputed="${department_id_1}" />
+            <column name="office_id" valueComputed="${office_id_1}"/>
+        </insert>
+        <insert tableName="office_department">
+            <column name="department_id" valueComputed="${department_id_2}" />
+            <column name="office_id" valueComputed="${office_id_1}"/>
+        </insert>
+        <insert tableName="office_department">
+            <column name="department_id" valueComputed="${department_id_3}" />
+            <column name="office_id" valueComputed="${office_id_1}"/>
+        </insert>
+
+        <insert tableName="office_department">
+            <column name="department_id" valueComputed="${department_id_2}" />
+            <column name="office_id" valueComputed="${office_id_2}"/>
+        </insert>
+        <insert tableName="office_department">
+            <column name="department_id" valueComputed="${department_id_5}" />
+            <column name="office_id" valueComputed="${office_id_2}"/>
+        </insert>
+    </changeSet>
+    
+</databaseChangeLog>

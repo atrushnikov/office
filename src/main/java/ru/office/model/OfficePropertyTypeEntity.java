@@ -6,17 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity(name = "officePropertyType")
+@Table(name = "office_property_type")
 @Data
-@Entity(name = "officeCategory")
-@Table(name = "office_category")
-public class OfficeCategoryEntity {
+public class OfficePropertyTypeEntity {
 
-    public OfficeCategoryEntity() {
+    public OfficePropertyTypeEntity() {
     }
 
     @Id
     private Long id;
 
     private String name;
-
 }

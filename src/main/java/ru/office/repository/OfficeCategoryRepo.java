@@ -9,4 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface OfficeCategoryRepo extends JpaRepository<OfficeCategoryEntity, UUID>, JpaSpecificationExecutor {
+
+    OfficeCategoryEntity findFirstById(Long id);
+
 }
