@@ -5,8 +5,8 @@ import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.office.model.OfficeCategoryDto;
-import ru.office.model.OfficeCategoryEntity;
+import ru.office.model.dto.OfficeCategoryDto;
+import ru.office.model.entity.OfficeCategoryEntity;
 import ru.office.service.OfficeCategoryService;
 
 import java.lang.reflect.Type;

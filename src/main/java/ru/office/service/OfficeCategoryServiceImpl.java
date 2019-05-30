@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import ru.office.model.OfficeCategoryDto;
-import ru.office.model.OfficeCategoryEntity;
+import ru.office.model.dto.OfficeCategoryDto;
+import ru.office.model.entity.OfficeCategoryEntity;
 import ru.office.repository.OfficeCategoryRepo;
 
 import java.util.List;

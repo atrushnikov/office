@@ -1,4 +1,4 @@
-package ru.office.model;
+package ru.office.model.dto;
 
 import lombok.Data;
 

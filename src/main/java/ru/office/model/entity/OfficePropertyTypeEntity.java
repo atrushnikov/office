@@ -1,4 +1,4 @@
-package ru.office.model;
+package ru.office.model.entity;
 
 import lombok.Data;
 
@@ -6,12 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity(name = "officePropertyType")
+@Table(name = "office_property_type")
 @Data
-@Entity(name = "officeCategory")
-@Table(name = "office_category")
-public class OfficeCategoryEntity {
+public class OfficePropertyTypeEntity {
 
-    public OfficeCategoryEntity() {
+    public OfficePropertyTypeEntity() {
     }
 
     @Id

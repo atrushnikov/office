@@ -1,7 +1,7 @@
 package ru.office.service;
 
-import ru.office.model.OfficePropertyTypeDto;
-import ru.office.model.OfficePropertyTypeEntity;
+import ru.office.model.dto.OfficePropertyTypeDto;
+import ru.office.model.entity.OfficePropertyTypeEntity;
 
 import java.util.List;
 

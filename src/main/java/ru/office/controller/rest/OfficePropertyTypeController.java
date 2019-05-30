@@ -6,8 +6,8 @@ import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.office.model.OfficePropertyTypeDto;
-import ru.office.model.OfficePropertyTypeEntity;
+import ru.office.model.dto.OfficePropertyTypeDto;
+import ru.office.model.entity.OfficePropertyTypeEntity;
 import ru.office.service.OfficePropertyTypeService;
 
 import java.lang.reflect.Type;

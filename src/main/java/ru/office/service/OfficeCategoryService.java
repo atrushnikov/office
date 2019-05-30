@@ -1,7 +1,7 @@
 package ru.office.service;
 
-import ru.office.model.OfficeCategoryDto;
-import ru.office.model.OfficeCategoryEntity;
+import ru.office.model.dto.OfficeCategoryDto;
+import ru.office.model.entity.OfficeCategoryEntity;
 
 import java.util.List;
 
