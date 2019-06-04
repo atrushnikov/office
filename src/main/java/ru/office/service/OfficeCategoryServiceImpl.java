@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 import ru.office.model.dto.OfficeCategoryDto;
 import ru.office.model.entity.OfficeCategoryEntity;
 import ru.office.repository.OfficeCategoryRepo;
+import ru.office.util.NoEntryException;
 
 import java.util.List;
+
+import static ru.office.util.ResponseMsqEnum.NO_ENTRY;
+import static ru.office.util.TableNamesEnum.*;
 
 @Slf4j
 @Service
@@ -28,8 +32,13 @@ public class OfficeCategoryServiceImpl implements OfficeCategoryService {
     }
 
     @Override
-    public OfficeCategoryEntity findById(Long id) {
-        return repo.findFirstById(id);
+    public OfficeCategoryEntity findById(Long id) throws NoEntryException {
+        log.info("findById with id : {}", id);
+        OfficeCategoryEntity entity = repo.findFirstById(id);
+        if (entity == null) {
+            throw new NoEntryException(NO_ENTRY.getMessage(), id.toString(), OFFICE_CATEGORY.getName());
+        }
+        return entity;
     }
 
     @Override
@@ -38,7 +47,7 @@ public class OfficeCategoryServiceImpl implements OfficeCategoryService {
     }
 
     @Override
-    public OfficeCategoryEntity update(OfficeCategoryDto dto, Long id) {
+    public OfficeCategoryEntity update(OfficeCategoryDto dto, Long id) throws NoEntryException {
         OfficeCategoryEntity entity = findById(id);
         log.info("Updating office_category with id : {}.\n\tOld entity :\n{}", id, modelMapper.map(entity, OfficeCategoryDto.class));
 
@@ -51,8 +60,9 @@ public class OfficeCategoryServiceImpl implements OfficeCategoryService {
     }
 
     @Override
-    public void delete(Long id) {
-        OfficeCategoryEntity entity = repo.findFirstById(id);
+    public void delete(Long id) throws NoEntryException{
+        log.info("Fetching & Deleting {} with id {}", OFFICE_CATEGORY.getName(), id);
+        OfficeCategoryEntity entity = findById(id);
         repo.delete(entity);
     }
 

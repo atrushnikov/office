@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.office.model.dto.OfficePropertyTypeDto;
 import ru.office.model.entity.OfficePropertyTypeEntity;
 import ru.office.service.OfficePropertyTypeService;
+import ru.office.util.NoEntryException;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/rest/office_property_types")
-public class OfficePropertyTypeController {
+public class OfficePropertyTypeController  extends BaseController {
 
     private OfficePropertyTypeService service;
     private ModelMapper modelMapper;
@@ -34,7 +35,7 @@ public class OfficePropertyTypeController {
 
 
     @GetMapping(value = "/{id}")
-    public OfficePropertyTypeDto getOfficeCategory(@PathVariable("id") Long id){
+    public OfficePropertyTypeDto getOfficeCategory(@PathVariable("id") Long id) throws NoEntryException {
         OfficePropertyTypeEntity officeCategoryEntity = service.findById(id);
         return modelMapper.map(officeCategoryEntity, OfficePropertyTypeDto.class);
     }
@@ -47,13 +48,13 @@ public class OfficePropertyTypeController {
     }
 
     @PutMapping("/{id}")
-    public OfficePropertyTypeDto updateOfficeCategory(@RequestBody OfficePropertyTypeDto dto, @PathVariable("id") Long id){
+    public OfficePropertyTypeDto updateOfficeCategory(@RequestBody OfficePropertyTypeDto dto, @PathVariable("id") Long id) throws NoEntryException{
         OfficePropertyTypeEntity entity = service.update(dto, id);
         return modelMapper.map(entity, OfficePropertyTypeDto.class);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity deleteOfficeCategory(@PathVariable("id") Long id){
+    public ResponseEntity deleteOfficeCategory(@PathVariable("id") Long id) throws NoEntryException{
         service.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

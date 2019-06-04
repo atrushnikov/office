@@ -8,7 +8,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 group = 'ru'
-version = '0.0.1-SNAPSHOT'
+version = '0.1'
 sourceCompatibility = '11'
 
 configurations {
@@ -24,6 +24,7 @@ repositories {
 dependencies {
     compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.4'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
     implementation 'org.springframework.boot:spring-boot-starter-web'

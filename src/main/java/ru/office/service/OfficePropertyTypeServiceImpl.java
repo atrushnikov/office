@@ -8,8 +8,12 @@ import ru.office.model.dto.OfficeCategoryDto;
 import ru.office.model.dto.OfficePropertyTypeDto;
 import ru.office.model.entity.OfficePropertyTypeEntity;
 import ru.office.repository.OfficePropertyTypeRepo;
+import ru.office.util.NoEntryException;
 
 import java.util.List;
+
+import static ru.office.util.ResponseMsqEnum.NO_ENTRY;
+import static ru.office.util.TableNamesEnum.*;
 
 @Slf4j
 @Service
@@ -29,8 +33,12 @@ public class OfficePropertyTypeServiceImpl implements OfficePropertyTypeService 
     }
 
     @Override
-    public OfficePropertyTypeEntity findById(Long id) {
-        return repo.findFirstById(id);
+    public OfficePropertyTypeEntity findById(Long id) throws NoEntryException {
+        OfficePropertyTypeEntity entity = repo.findFirstById(id);
+        if (entity == null) {
+            throw new NoEntryException(NO_ENTRY.getMessage(), id.toString(), OFFICE_PROPERTY_TYPE.getName());
+        }
+        return entity;
     }
 
     @Override
@@ -39,7 +47,7 @@ public class OfficePropertyTypeServiceImpl implements OfficePropertyTypeService 
     }
 
     @Override
-    public OfficePropertyTypeEntity update(OfficePropertyTypeDto dto, Long id) {
+    public OfficePropertyTypeEntity update(OfficePropertyTypeDto dto, Long id) throws NoEntryException {
         OfficePropertyTypeEntity entity = findById(id);
         log.info("Updating office_property_type with id : {}.\n\tOld entity :\n{}", id, modelMapper.map(entity, OfficeCategoryDto.class));
 
@@ -52,8 +60,9 @@ public class OfficePropertyTypeServiceImpl implements OfficePropertyTypeService 
     }
 
     @Override
-    public void delete(Long id) {
-        OfficePropertyTypeEntity entity = repo.findFirstById(id);
+    public void delete(Long id) throws NoEntryException {
+        log.info("Fetching & Deleting {} with id {}", OFFICE_PROPERTY_TYPE.getName(), id);
+        OfficePropertyTypeEntity entity = findById(id);
         repo.delete(entity);
     }
 }

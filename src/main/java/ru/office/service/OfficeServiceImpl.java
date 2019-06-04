@@ -1,21 +1,40 @@
 package ru.office.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import ru.office.model.dto.OfficeDto;
+import ru.office.model.entity.DepartmentEntity;
+import ru.office.model.entity.OfficeCategoryEntity;
 import ru.office.model.entity.OfficeEntity;
+import ru.office.model.entity.OfficePropertyTypeEntity;
 import ru.office.repository.OfficeRepo;
+import ru.office.util.NoEntryException;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static ru.office.util.ResponseMsqEnum.NO_ENTRY;
+import static ru.office.util.TableNamesEnum.*;
 
 @Slf4j
 @Service
 public class OfficeServiceImpl implements OfficeService {
 
     private OfficeRepo repo;
+    private ModelMapper modelMapper;
+    private OfficeCategoryService officeCategoryService;
+    private OfficePropertyTypeService officePropertyTypeService;
+    private DepartmentService departmentService;
 
-    public OfficeServiceImpl(OfficeRepo repo) {
+    public OfficeServiceImpl(OfficeRepo repo, ModelMapper modelMapper, OfficeCategoryService officeCategoryService, OfficePropertyTypeService officePropertyTypeService, DepartmentService departmentService) {
         this.repo = repo;
+        this.modelMapper = modelMapper;
+        this.officeCategoryService = officeCategoryService;
+        this.officePropertyTypeService = officePropertyTypeService;
+        this.departmentService = departmentService;
     }
 
     @Override
@@ -25,15 +44,49 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public OfficeEntity findOne(UUID id) {
-        log.info("findOne with id : {}", id);
-        return repo.findFirstById(id);
+    public OfficeEntity findById(UUID id) throws NoEntryException {
+        log.info("findById with id : {}", id);
+        OfficeEntity entity = repo.findFirstById(id);
+        if (entity == null) {
+            throw new NoEntryException(NO_ENTRY.getMessage(), id.toString(), OFFICE.getName());
+        }
+        return entity;
     }
 
     @Override
     public OfficeEntity save(OfficeEntity entity) {
-        log.info("save");
         return  repo.saveAndFlush(entity);
+    }
+
+    @Override
+    public OfficeEntity update(OfficeDto dto, UUID id) throws NoEntryException {
+        OfficeEntity entity = findById(id);
+        log.info("Updating {} with id : {}.\n\tOld entity :\n{}", OFFICE.getName(), id, modelMapper.map(entity, OfficeEntity.class));
+
+        OfficeCategoryEntity officeCategoryEntity = officeCategoryService.findById(dto.getOfficeCategory().getId());
+        OfficePropertyTypeEntity officePropertyTypeEntity = officePropertyTypeService.findById(dto.getOfficePropertyType().getId());
+        Set<UUID> departmentIds = dto.getDepartments().stream()
+                .map(DepartmentEntity::getId)
+                .collect(Collectors.toSet());
+        Set<DepartmentEntity> departmentEntities = departmentService.findAllByIds(departmentIds);
+
+        entity.setAddress(dto.getAddress());
+        entity.setCity(dto.getCity());
+        entity.setDepartments(departmentEntities);
+        entity.setOfficeCategory(officeCategoryEntity);
+        entity.setOfficePropertyType(officePropertyTypeEntity);
+        entity.setValue(dto.getValue());
+        entity = save(entity);
+        log.info("Updated {} with id : {}.\n\tNew entity :\n{}", OFFICE.getName(), id, modelMapper.map(entity, OfficeEntity.class));
+
+        return entity;
+    }
+
+    @Override
+    public void delete(UUID id) throws NoEntryException {
+        log.info("Fetching & Deleting {} with id {}", OFFICE.getName(), id);
+        OfficeEntity entity = findById(id);
+        repo.delete(entity);
     }
 
 }
