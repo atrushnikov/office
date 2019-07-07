@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql
+    container_name: office-mysql
+    ports:
+      - 9001:3306
+    restart: on-failure
+    volumes:
+      - ./volumes/db/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: office
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    networks:
+      - office_network
+  api:
+    container_name: office-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./volumes/conf:/usr/src/office/resources
+    ports:
+      - 8001:8080
+    networks:
+      - office_network
+    depends_on:
+      - mysql
+networks:
+  office_network:
