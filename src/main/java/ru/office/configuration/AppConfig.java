@@ -2,6 +2,7 @@ package ru.office.configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+@Slf4j
 @Configuration
 @EnableJpaRepositories(basePackages = "ru.office.repository")
 @EnableTransactionManagement
@@ -48,6 +50,7 @@ public class AppConfig {
     @Bean
     public DataSource dataSource() {
         DataSourceProperties properties = dataSourceProperties();
+        log.info("DataSource url : {} ", properties.getUrl());
         HikariDataSource dataSource = DataSourceBuilder
                 .create(properties.getClassLoader())
                 .driverClassName(properties.getDriverClassName())
