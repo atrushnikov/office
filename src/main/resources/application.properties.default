@@ -6,7 +6,7 @@ spring.liquibase.enabled=true
 spring.jpa.hibernate.ddl-auto=none
 
 datasource.office.driverClassName = com.mysql.cj.jdbc.Driver
-datasource.office.url = jdbc:mysql://172.19.0.2:3306/office?allowPublicKeyRetrieval=true&useSSL=false
+datasource.office.url = jdbc:mysql://localhost:9001/office?allowPublicKeyRetrieval=true&useSSL=false
 datasource.office.defaultSchema =
 datasource.office.maxPoolSize = 20
 datasource.office.username = root

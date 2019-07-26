@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.office.model.dto.OfficeCategoryDto;
 import ru.office.model.entity.OfficeCategoryEntity;
 import ru.office.repository.OfficeCategoryRepo;
@@ -16,6 +17,7 @@ import static ru.office.util.TableNamesEnum.*;
 
 @Slf4j
 @Service
+@Transactional
 public class OfficeCategoryServiceImpl implements OfficeCategoryService {
 
     private OfficeCategoryRepo repo;

@@ -3,6 +3,7 @@ package ru.office.service;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.office.model.dto.OfficeDto;
 import ru.office.model.entity.DepartmentEntity;
 import ru.office.model.entity.OfficeCategoryEntity;
@@ -21,6 +22,7 @@ import static ru.office.util.TableNamesEnum.*;
 
 @Slf4j
 @Service
+@Transactional
 public class OfficeServiceImpl implements OfficeService {
 
     private OfficeRepo repo;
