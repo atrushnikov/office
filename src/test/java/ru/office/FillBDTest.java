@@ -34,7 +34,7 @@ public class FillBDTest {
     @Autowired
     private OfficePropertyTypeService officePropertyTypeService;
 
-    //@Ignore
+    @Ignore
     @Test
     @Commit
     public void fillDBTest() {
