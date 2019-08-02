@@ -6,6 +6,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.office.model.ReadRequest;
 import ru.office.model.dto.OfficeDto;
 import ru.office.model.entity.OfficeEntity;
 import ru.office.service.OfficeService;
@@ -31,9 +32,10 @@ public class OfficeController extends BaseController {
     }
 
     @GetMapping
-    public List<OfficeDto> getAll(){
+    public List<OfficeDto> getAll(@RequestParam(value = "page") Integer page,
+                                  @RequestParam(value = "size", required = false) Integer size){
         Type type = new TypeToken<List<OfficeDto>>() {}.getType();
-        return modelMapper.map(service.findAll(), type);
+        return modelMapper.map(service.findAll(new ReadRequest(page, size)), type);
     }
 
     @GetMapping("/{id}")

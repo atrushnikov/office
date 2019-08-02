@@ -2,8 +2,10 @@ package ru.office.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.office.model.ReadRequest;
 import ru.office.model.dto.OfficeDto;
 import ru.office.model.entity.DepartmentEntity;
 import ru.office.model.entity.OfficeCategoryEntity;
@@ -40,9 +42,10 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public List<OfficeEntity> findAll() {
+    public List<OfficeEntity> findAll(ReadRequest readRequest) {
         log.info("find all");
-        return repo.findAll();
+        PageRequest pageRequest = PageRequest.of(readRequest.getPage() - 1, readRequest.getSize());
+        return repo.findAll(pageRequest).getContent();
     }
 
     @Override

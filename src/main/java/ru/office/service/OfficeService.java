@@ -1,5 +1,6 @@
 package ru.office.service;
 
+import ru.office.model.ReadRequest;
 import ru.office.model.dto.OfficeDto;
 import ru.office.model.entity.OfficeEntity;
 import ru.office.util.NoEntryException;
@@ -9,7 +10,7 @@ import java.util.UUID;
 
 public interface OfficeService {
 
-    List<OfficeEntity> findAll();
+    List<OfficeEntity> findAll(ReadRequest readRequest);
     OfficeEntity findById(UUID id) throws NoEntryException;
     OfficeEntity save(OfficeEntity entity);
     OfficeEntity update(OfficeDto dto, UUID id) throws NoEntryException;

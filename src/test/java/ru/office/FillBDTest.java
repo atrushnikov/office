@@ -1,10 +1,12 @@
 package ru.office;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.office.model.entity.DepartmentEntity;
@@ -34,13 +36,13 @@ public class FillBDTest {
 
     //@Ignore
     @Test
-    //@Commit
+    @Commit
     public void fillDBTest() {
         List<OfficeCategoryEntity> officeCategoryEntities = officeCategoryService.findAll();
         List<OfficePropertyTypeEntity> officePropertyTypeEntities = officePropertyTypeService.findAll();
         List<DepartmentEntity> departmentEntities = departmentService.findAll();
 
-        List<String> streats = Arrays.asList("Абельмановская Застава", "Авиаконструктора Сухого", "Автозаводский 1-й проезд",
+        List<String> streets = Arrays.asList("Абельмановская Застава", "Авиаконструктора Сухого", "Автозаводский 1-й проезд",
                 "Айвазовского", "Боевская 2-я", "Болотниковская", "Большая Декабрьская", "Большая Набережная",
                 "Бригадирский переулок", "Бродников переулок", "Брянский 2-й переулок",
                 "Бутлерова", "Валаамская", "Василисы Кожиной", "Васильцовский Стан", "Введенского,",
@@ -55,9 +57,7 @@ public class FillBDTest {
 
         Random random = new Random();
 
-        List<OfficeEntity> officeEntities = new ArrayList<>();
-
-        for (String street : streats) {
+        for (String street : streets) {
 
             Set<String> apartments = new HashSet<>();
             while (apartments.size() < 200) {
@@ -74,13 +74,11 @@ public class FillBDTest {
                 officeEntity.setValue(random.nextInt(999_999_999) + 10_000_000_000L);
 
                 Set<DepartmentEntity> departments = new HashSet<>();
-                for (int i = 0; i < random.nextInt(5); i++) {
+                for (int i = 0; i < random.nextInt(4) + 1; i++) {
                     departments.add(departmentEntities.get(i));
                 }
 
                 officeEntity.setDepartments(departments);
-
-                officeEntities.add(officeEntity);
                 officeService.save(officeEntity);
             }
         }
