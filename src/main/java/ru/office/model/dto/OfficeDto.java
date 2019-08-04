@@ -27,7 +27,7 @@ public class OfficeDto {
 
     private OfficePropertyTypeDto officePropertyType;
 
-    private Long value;
+    private Double value;
 
     private Set<DepartmentEntity> departments = new HashSet();
 }

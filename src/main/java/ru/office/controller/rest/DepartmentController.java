@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.office.model.dto.DepartmentDto;
 import ru.office.model.dto.OfficeDto;
 import ru.office.model.entity.DepartmentEntity;
-import ru.office.model.entity.OfficeEntity;
 import ru.office.service.DepartmentService;
 import ru.office.util.NoEntryException;
 
@@ -21,7 +20,7 @@ import static ru.office.util.TableNamesEnum.OFFICE;
 
 @Slf4j
 @RestController
-@RequestMapping("/rest/departments")
+@RequestMapping("/api/rest/departments")
 public class DepartmentController extends BaseController {
 
     private DepartmentService service;

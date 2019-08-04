@@ -16,6 +16,7 @@ public class OfficeEntity {
     public OfficeEntity() {
     }
 
+
     @Id
     @Column(columnDefinition = "BINARY(16)")
     @GeneratedValue(generator = "uuid2")
@@ -40,6 +41,5 @@ public class OfficeEntity {
             inverseJoinColumns = {@JoinColumn(name = "department_id")})
     private Set<DepartmentEntity> departments = new HashSet();
 
-    private Long value;
-
+    private Double value;
 }

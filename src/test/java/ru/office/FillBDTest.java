@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.office.model.entity.DepartmentEntity;
@@ -71,7 +70,7 @@ public class FillBDTest {
                 officeEntity.setAddress(address.toString());
                 officeEntity.setOfficeCategory(officeCategoryEntities.get(random.nextInt(4)));
                 officeEntity.setOfficePropertyType(officePropertyTypeEntities.get(random.nextInt(2)));
-                officeEntity.setValue(random.nextInt(999_999_999) + 10_000_000_000L);
+                officeEntity.setValue(random.nextInt(60_999_999) + 10_000_000D);
 
                 Set<DepartmentEntity> departments = new HashSet<>();
                 for (int i = 0; i < random.nextInt(4) + 1; i++) {

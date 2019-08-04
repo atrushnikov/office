@@ -11,8 +11,11 @@ import java.util.UUID;
 public interface OfficeService {
 
     List<OfficeEntity> findAll(ReadRequest readRequest);
+    List<OfficeEntity> findAll();
     OfficeEntity findById(UUID id) throws NoEntryException;
     OfficeEntity save(OfficeEntity entity);
+    void saveAll(List<OfficeEntity> entities);
     OfficeEntity update(OfficeDto dto, UUID id) throws NoEntryException;
     void delete(UUID id) throws NoEntryException;
+    void costReduction();
 }

@@ -3,6 +3,7 @@ package ru.office.service;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.office.model.ReadRequest;
@@ -20,7 +21,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static ru.office.util.ResponseMsqEnum.NO_ENTRY;
-import static ru.office.util.TableNamesEnum.*;
+import static ru.office.util.TableNamesEnum.OFFICE;
 
 @Slf4j
 @Service
@@ -39,6 +40,13 @@ public class OfficeServiceImpl implements OfficeService {
         this.officeCategoryService = officeCategoryService;
         this.officePropertyTypeService = officePropertyTypeService;
         this.departmentService = departmentService;
+    }
+
+
+    @Override
+    public List<OfficeEntity> findAll() {
+        log.info("find all");
+        return repo.findAll();
     }
 
     @Override
@@ -61,6 +69,11 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public OfficeEntity save(OfficeEntity entity) {
         return  repo.saveAndFlush(entity);
+    }
+
+    @Override
+    public void saveAll(List<OfficeEntity> entities) {
+        repo.saveAll(entities);
     }
 
     @Override
@@ -92,6 +105,23 @@ public class OfficeServiceImpl implements OfficeService {
         log.info("Fetching & Deleting {} with id {}", OFFICE.getName(), id);
         OfficeEntity entity = findById(id);
         repo.delete(entity);
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 23 * * ?")
+    public void costReduction() {
+        List<OfficeEntity> officeEntities = this.findAll();
+        this.percentageReduction(officeEntities, 1);
+        this.saveAll(officeEntities);
+
+    }
+
+    public void percentageReduction(List<OfficeEntity> officeEntities, double percent) {
+        for (OfficeEntity entity : officeEntities) {
+            Double value = entity.getValue();
+            double percentValue = value * (percent / 100);
+            entity.setValue(value - percentValue);
+        }
     }
 
 }
