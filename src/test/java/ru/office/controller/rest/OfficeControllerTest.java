@@ -5,18 +5,33 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import ru.office.model.dto.OfficeDto;
+import ru.office.model.entity.DepartmentEntity;
+import ru.office.model.entity.OfficeCategoryEntity;
 import ru.office.model.entity.OfficeEntity;
+import ru.office.model.entity.OfficePropertyTypeEntity;
 import ru.office.repository.OfficeRepo;
+import ru.office.service.OfficeService;
+
+import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
@@ -26,88 +41,47 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(OfficeController.class)
+@RunWith(MockitoJUnitRunner.class)
 public class OfficeControllerTest {
 
-    @MockBean
-    private OfficeRepo repo;
+    @Mock
+    private OfficeService service;
 
-    @Autowired
+    @InjectMocks
+    private OfficeController officeController;
+
     private MockMvc mockMvc;
-
-    @Configuration
-    static class TestConfig {
-        @Bean
-        public ModelMapper modelMapper() {
-            return new ModelMapper();
-        }
-    }
+    private JacksonTester<OfficeDto> jsonOffice;
 
     @Before
     public void setUp() throws Exception {
+        officeController.setModelMapper(new ModelMapper());
+        JacksonTester.initFields(this, new ObjectMapper());
+        mockMvc = MockMvcBuilders.standaloneSetup(officeController).build();
 
     }
+
 
     @Test
-    public void getAll() {
+    public void getOneOkTest() throws Exception {
+        String officeEntitiesJson = "{\"id\":\"0483a853-f78e-4203-b930-179d9cfe30a4\",\"city\":\"Москва\",\"address\":\"Вересаева д. 36\",\"officeCategory\":{\"id\":1,\"name\":\"A\"},\"officePropertyType\":{\"id\":1,\"name\":\"private\"},\"value\":5000000.0,\"departments\":[{\"id\":\"1392bd54-5905-11e9-b572-0242ac130002\",\"name\":\"Пенсионный фонд\"}]}";
+
+        OfficeEntity officeEntity = new OfficeEntity();
+        officeEntity.setId(UUID.fromString("0483a853-f78e-4203-b930-179d9cfe30a4"));
+        officeEntity.setAddress("Вересаева д. 36");
+        officeEntity.setCity("Москва");
+        officeEntity.setDepartments(Set.of(new DepartmentEntity(UUID.fromString("1392bd54-5905-11e9-b572-0242ac130002"), "Пенсионный фонд")));
+        officeEntity.setOfficeCategory(new OfficeCategoryEntity(1L, "A"));
+        officeEntity.setOfficePropertyType(new OfficePropertyTypeEntity(1L, "private"));
+        officeEntity.setValue(5000000D);
+
+        given(service.findById(UUID.fromString("0483a853-f78e-4203-b930-179d9cfe30a4"))).willReturn(officeEntity);
+
+        MockHttpServletResponse response = mockMvc.perform(get("/api/rest/offices/0483a853-f78e-4203-b930-179d9cfe30a4").accept(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(officeEntitiesJson);
     }
 
-    @Test
-    //@Ignore
-    public void getOne() throws Exception {
-
-        String officeEntitiesJson = "{\n" +
-                "  \"id\": \"0483a853-f78e-4203-b930-179d9cfe30a4\",\n" +
-                "  \"city\": \"Москва\",\n" +
-                "  \"address\": \"Вересаева д. 36\",\n" +
-                "  \"officeCategory\": {\n" +
-                "    \"id\": 1,\n" +
-                "    \"name\": \"A\"\n" +
-                "  },\n" +
-                "  \"officePropertyType\": {\n" +
-                "    \"id\": 1,\n" +
-                "    \"name\": \"private\"\n" +
-                "  },\n" +
-                "  \"value\": 1.0221745155E10,\n" +
-                "  \"departments\": [\n" +
-                "    {\n" +
-                "      \"id\": \"1392bd54-5905-11e9-b572-0242ac130002\",\n" +
-                "      \"name\": \"Миграционная полиция\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"id\": \"f08b484b-8118-11e9-b7a1-0242ac120002\",\n" +
-                "      \"name\": \"Пенсионный фонд\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"id\": \"8a0be692-5934-11e9-b572-0242ac130002\",\n" +
-                "      \"name\": \"Паспортный стол\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"id\": \"60f76a5f-5934-11e9-b572-0242ac130002\",\n" +
-                "      \"name\": \"ЖКХ\"\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}";
-        ObjectMapper objectMapper = new ObjectMapper();
-        OfficeEntity officeEntity = objectMapper.readValue(officeEntitiesJson, OfficeEntity.class);
-
-        given(repo.findFirstById(any())).willReturn(officeEntity);
-
-        mockMvc.perform(get("/00175f63-8210-429a-ac18-fb189a7d1d38").accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void create() {
-    }
-
-    @Test
-    public void update() {
-    }
-
-    @Test
-    public void deleteOfficeCategory() {
-    }
 }

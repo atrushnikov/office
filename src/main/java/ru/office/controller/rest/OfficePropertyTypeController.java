@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/rest/office_property_types")
-public class OfficePropertyTypeController  extends BaseController {
+public class OfficePropertyTypeController {
 
     private OfficePropertyTypeService service;
     private ModelMapper modelMapper;

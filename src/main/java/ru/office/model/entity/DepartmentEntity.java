@@ -17,4 +17,11 @@ public class DepartmentEntity {
 
     private String name;
 
+    public DepartmentEntity() {
+    }
+
+    public DepartmentEntity(UUID id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

@@ -82,8 +82,6 @@ public class FillBDTest {
             }
         }
 
-        System.out.println("");
-
     }
 
 

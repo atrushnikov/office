@@ -28,6 +28,8 @@
             <column name="value" type="double">
                 <constraints nullable="false"/>
             </column>
+            <column name="create_date" type="DATETIME"/>
+            <column name="updated_date" type="DATETIME"/>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="office"

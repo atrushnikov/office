@@ -1,9 +1,12 @@
 package ru.office.model.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -42,4 +45,12 @@ public class OfficeEntity {
     private Set<DepartmentEntity> departments = new HashSet();
 
     private Double value;
+
+    @Column(name = "create_date", columnDefinition = "DATETIME")
+    @CreationTimestamp
+    private Date createDate;
+
+    @Column(name = "updated_date", columnDefinition = "DATETIME")
+    @UpdateTimestamp
+    private Date updatedDate;
 }

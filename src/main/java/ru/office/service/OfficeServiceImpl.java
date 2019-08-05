@@ -15,6 +15,7 @@ import ru.office.model.entity.OfficePropertyTypeEntity;
 import ru.office.repository.OfficeRepo;
 import ru.office.util.NoEntryException;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -33,6 +34,8 @@ public class OfficeServiceImpl implements OfficeService {
     private OfficeCategoryService officeCategoryService;
     private OfficePropertyTypeService officePropertyTypeService;
     private DepartmentService departmentService;
+
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     public OfficeServiceImpl(OfficeRepo repo, ModelMapper modelMapper, OfficeCategoryService officeCategoryService, OfficePropertyTypeService officePropertyTypeService, DepartmentService departmentService) {
         this.repo = repo;
@@ -121,6 +124,7 @@ public class OfficeServiceImpl implements OfficeService {
             Double value = entity.getValue();
             double percentValue = value * (percent / 100);
             entity.setValue(value - percentValue);
+            log.info("Cost reduction id : {}, old value: {}, new value: {}", entity.getId(), df2.format(value), df2.format(entity.getValue()));
         }
     }
 

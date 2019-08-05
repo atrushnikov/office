@@ -14,6 +14,11 @@ public class OfficeCategoryEntity {
     public OfficeCategoryEntity() {
     }
 
+    public OfficeCategoryEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     private Long id;
 

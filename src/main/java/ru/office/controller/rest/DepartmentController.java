@@ -21,7 +21,7 @@ import static ru.office.util.TableNamesEnum.OFFICE;
 @Slf4j
 @RestController
 @RequestMapping("/api/rest/departments")
-public class DepartmentController extends BaseController {
+public class DepartmentController {
 
     private DepartmentService service;
     private ModelMapper modelMapper;

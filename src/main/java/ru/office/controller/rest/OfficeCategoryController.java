@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/rest/office-categories")
-public class OfficeCategoryController  extends BaseController {
+public class OfficeCategoryController {
 
     private OfficeCategoryService service;
     private ModelMapper modelMapper;

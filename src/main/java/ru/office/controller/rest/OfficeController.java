@@ -1,6 +1,7 @@
 package ru.office.controller.rest;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.text.StringSubstitutor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
@@ -8,11 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.office.model.ReadRequest;
 import ru.office.model.dto.OfficeDto;
+import ru.office.model.dto.ResponseDto;
 import ru.office.model.entity.OfficeEntity;
 import ru.office.service.OfficeService;
 import ru.office.util.NoEntryException;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +24,7 @@ import static ru.office.util.TableNamesEnum.*;
 @Slf4j
 @RestController
 @RequestMapping(path = "/api/rest/offices")
-public class OfficeController extends BaseController {
+public class OfficeController {
 
     private ModelMapper modelMapper;
     private OfficeService service;
@@ -61,6 +64,11 @@ public class OfficeController extends BaseController {
     public ResponseEntity deleteOfficeCategory(@PathVariable("id") UUID id) throws NoEntryException{
         service.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
     }
 
 }

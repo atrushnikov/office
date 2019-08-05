@@ -14,6 +14,11 @@ public class OfficePropertyTypeEntity {
     public OfficePropertyTypeEntity() {
     }
 
+    public OfficePropertyTypeEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     private Long id;
 
