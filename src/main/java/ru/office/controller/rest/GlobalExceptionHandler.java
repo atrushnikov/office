@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.office.model.dto.ResponseDto;
 import ru.office.util.NoEntryException;
 
@@ -17,7 +16,6 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoEntryException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ResponseDto> handleNoContentException(NoEntryException e){
         Map valueMap = Map.ofEntries(Map.entry("id", e.getId()), Map.entry("tableName", e.getTableName()));
         StringSubstitutor stringSubstitutor = new StringSubstitutor(valueMap);
