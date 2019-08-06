@@ -1,5 +1,6 @@
 package ru.office.controller.rest;
 
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringSubstitutor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +22,7 @@ import java.util.UUID;
 
 import static ru.office.util.TableNamesEnum.*;
 
+@Api(tags = "Office Commands")
 @Slf4j
 @RestController
 @RequestMapping(path = "/api/rest/offices")
@@ -34,32 +36,44 @@ public class OfficeController {
         this.service = service;
     }
 
+
+    @ApiOperation(value = "View a list of available offices")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
     @GetMapping
-    public List<OfficeDto> getAll(@RequestParam(value = "page") Integer page,
+    public List<OfficeDto> getAll(@ApiParam(value = "Page number starts at 1", required = true) @RequestParam(value = "page") Integer page,
                                   @RequestParam(value = "size", required = false) Integer size){
         Type type = new TypeToken<List<OfficeDto>>() {}.getType();
         return modelMapper.map(service.findAll(new ReadRequest(page, size)), type);
     }
 
+    @ApiOperation(value = "Get an office by Id")
     @GetMapping("/{id}")
     public OfficeDto getOne(@PathVariable UUID id) throws NoEntryException {
         return modelMapper.map(service.findById(id), OfficeDto.class);
     }
 
+    @ApiOperation(value = "Add an office")
     @PostMapping
-    public OfficeDto create(@RequestBody OfficeDto dto) {
+    public OfficeDto create(@ApiParam(value = "Office object store in database table", required = true) @RequestBody OfficeDto dto) {
         OfficeEntity entity = modelMapper.map(dto, OfficeEntity.class);
         log.info("Creating {} : {} \n", OFFICE.getName(), dto);
         OfficeEntity entityNew = service.save(entity);
         return modelMapper.map(entityNew, OfficeDto.class);
     }
 
+    @ApiOperation(value = "Update an office")
     @PutMapping("/{id}")
     public OfficeDto update(@RequestBody OfficeDto dto, @PathVariable UUID id) throws NoEntryException {
         OfficeEntity entity = service.update(dto, id);
         return modelMapper.map(entity, OfficeDto.class);
     }
 
+    @ApiOperation(value = "Delete an office")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteOfficeCategory(@PathVariable("id") UUID id) throws NoEntryException{
         service.delete(id);

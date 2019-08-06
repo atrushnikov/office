@@ -1,5 +1,6 @@
 package ru.office.controller.rest;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 import static ru.office.util.TableNamesEnum.OFFICE;
 
+@Api(tags = "Department Commands")
 @Slf4j
 @RestController
 @RequestMapping("/api/rest/departments")

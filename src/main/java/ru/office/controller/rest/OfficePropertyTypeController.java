@@ -1,5 +1,6 @@
 package ru.office.controller.rest;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -14,6 +15,7 @@ import ru.office.util.NoEntryException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+@Api(tags = "Office Property Type Commands")
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/rest/office_property_types")

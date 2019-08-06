@@ -1,5 +1,6 @@
 package ru.office.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import ru.office.model.entity.DepartmentEntity;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@ApiModel()
 @Data
 public class OfficeDto {
 

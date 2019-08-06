@@ -5,12 +5,13 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
+
+### http://localhost:8081/swagger-ui.html
+
 ###
 GET http://localhost:8081/api/rest/departments
-
 ###
 GET http://localhost:8081/api/rest/offices?page=1&size=1
-
 ###
 POST http://localhost:8081/api/rest/offices
 Content-Type: application/json
@@ -41,6 +42,5 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8081/api/rest/offices/0010a836-4672-4e69-ad1e-2a93e4ed8034
-
+GET http://localhost:8081/api/rest/offices/3fe14602-810d-11e9-baee-0242ac120002
 ###

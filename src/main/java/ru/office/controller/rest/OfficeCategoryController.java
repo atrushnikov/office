@@ -1,5 +1,6 @@
 package ru.office.controller.rest;
 
+import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import ru.office.util.NoEntryException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+@Api(tags = "Office Category Commands")
 @RestController
 @RequestMapping("/api/rest/office-categories")
 public class OfficeCategoryController {
