@@ -1,22 +1,21 @@
 package ru.office.model;
 
 import lombok.Data;
-import java.util.List;
 
 @Data
 public class ReadRequest {
-    private Integer page;
-    private Integer size;
+    private Integer pageNumber;
+    private Integer batchSize;
 
-    public ReadRequest(Integer page, Integer size) {
-        this.page = page;
-        this.size = size;
+    public ReadRequest(Integer pageNumber, Integer batchSize) {
+        this.pageNumber = pageNumber;
+        this.batchSize = batchSize;
         init();
     }
 
     private void init() {
-        if (size == null) {
-            size = 20;
+        if (batchSize == null) {
+            batchSize = 20;
         }
     }
 
@@ -24,8 +23,8 @@ public class ReadRequest {
     @Override
     public String toString() {
         return "ReadRequest{" +
-                "page=" + page +
-                ", size=" + size +
+                "pageNumber=" + pageNumber +
+                ", batchSize=" + batchSize +
                 '}';
     }
 }

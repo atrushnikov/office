@@ -11,7 +11,7 @@
 ###
 GET http://localhost:8081/api/rest/departments
 ###
-GET http://localhost:8081/api/rest/offices?page=1&size=1
+GET http://localhost:8081/api/rest/offices?pageNumber=1&batchSize=20
 ###
 POST http://localhost:8081/api/rest/offices
 Content-Type: application/json

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.office.model.ReadRequest;
+import ru.office.model.dto.BatchDto;
 import ru.office.model.dto.OfficeDto;
 import ru.office.model.dto.ResponseDto;
 import ru.office.model.entity.OfficeEntity;
@@ -45,10 +46,9 @@ public class OfficeController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @GetMapping
-    public List<OfficeDto> getAll(@ApiParam(value = "Page number starts at 1", required = true) @RequestParam(value = "page") Integer page,
-                                  @RequestParam(value = "size", required = false) Integer size){
-        Type type = new TypeToken<List<OfficeDto>>() {}.getType();
-        return modelMapper.map(service.findAll(new ReadRequest(page, size)), type);
+    public BatchDto<OfficeDto> getAll(@ApiParam(value = "Page number starts at 1", required = true) @RequestParam(value = "pageNumber") Integer page,
+                                      @RequestParam(value = "batchSize", required = false) Integer size){
+        return service.findAll(new ReadRequest(page, size));
     }
 
     @ApiOperation(value = "Get an office by Id")

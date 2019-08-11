@@ -2,11 +2,14 @@ package ru.office.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.office.model.ReadRequest;
+import ru.office.model.dto.BatchDto;
 import ru.office.model.dto.OfficeDto;
 import ru.office.model.entity.DepartmentEntity;
 import ru.office.model.entity.OfficeCategoryEntity;
@@ -15,6 +18,7 @@ import ru.office.model.entity.OfficePropertyTypeEntity;
 import ru.office.repository.OfficeRepo;
 import ru.office.util.NoEntryException;
 
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Set;
@@ -53,10 +57,16 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public List<OfficeEntity> findAll(ReadRequest readRequest) {
+    public BatchDto<OfficeDto>findAll(ReadRequest readRequest) {
         log.info("find all");
-        PageRequest pageRequest = PageRequest.of(readRequest.getPage() - 1, readRequest.getSize());
-        return repo.findAll(pageRequest).getContent();
+        PageRequest pageRequest = PageRequest.of(readRequest.getPageNumber() - 1, readRequest.getBatchSize());
+        Type type = new TypeToken<List<OfficeDto>>() {}.getType();
+
+        Page<OfficeEntity> officeEntitiesPage = repo.findAll(pageRequest);
+        List<OfficeDto> officesDto = modelMapper.map(officeEntitiesPage.getContent(), type);
+        Long totalPages = officeEntitiesPage.getTotalElements() / readRequest.getBatchSize();
+
+        return new BatchDto<>(totalPages, officeEntitiesPage.getTotalElements(), readRequest.getPageNumber(), readRequest.getBatchSize(), officesDto);
     }
 
     @Override
