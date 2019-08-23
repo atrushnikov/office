@@ -1,6 +1,5 @@
 package ru.office;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class FillBDTest {
     @Autowired
     private OfficePropertyTypeService officePropertyTypeService;
 
-    @Ignore
+    //@Ignore
     @Test
     @Commit
     public void fillDBTest() {
@@ -56,6 +55,7 @@ public class FillBDTest {
 
         Random random = new Random();
 
+        List<OfficeEntity> officeEntities = new ArrayList<>();
         for (String street : streets) {
 
             Set<String> apartments = new HashSet<>();
@@ -78,8 +78,9 @@ public class FillBDTest {
                 }
 
                 officeEntity.setDepartments(departments);
-                officeService.save(officeEntity);
+                officeEntities.add(officeEntity);
             }
+            officeService.saveAll(officeEntities);
         }
 
     }
