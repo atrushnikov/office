@@ -1,5 +1,6 @@
 package ru.office;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class FillBDTest {
     @Autowired
     private OfficePropertyTypeService officePropertyTypeService;
 
-    //@Ignore
+    @Ignore
     @Test
     @Commit
     public void fillDBTest() {
