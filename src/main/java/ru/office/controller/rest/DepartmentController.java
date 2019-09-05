@@ -19,7 +19,7 @@ import java.util.UUID;
 
 import static ru.office.util.TableNamesEnum.OFFICE;
 
-@Api(tags = "Department Commands")
+@Api(tags = "Department")
 @Slf4j
 @RestController
 @RequestMapping("/api/rest/departments")

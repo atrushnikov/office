@@ -14,7 +14,7 @@ import ru.office.util.NoEntryException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-@Api(tags = "Office Category Commands")
+@Api(tags = "Office Category")
 @RestController
 @RequestMapping("/api/rest/office-categories")
 public class OfficeCategoryController {

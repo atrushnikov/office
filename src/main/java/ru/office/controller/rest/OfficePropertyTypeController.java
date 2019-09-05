@@ -15,7 +15,7 @@ import ru.office.util.NoEntryException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-@Api(tags = "Office Property Type Commands")
+@Api(tags = "Office Property Type")
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/rest/office_property_types")

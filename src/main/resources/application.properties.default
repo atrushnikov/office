@@ -1,9 +1,9 @@
 server.port = 8081
 
-spring.liquibase.change-log=classpath:db/liquibase-changelog.xml
-spring.liquibase.enabled=true
+spring.liquibase.change-log = classpath:db/liquibase-changelog.xml
+spring.liquibase.enabled = true
 
-spring.jpa.hibernate.ddl-auto=none
+spring.jpa.hibernate.ddl-auto = none
 
 datasource.office.driverClassName = com.mysql.cj.jdbc.Driver
 datasource.office.url = jdbc:mysql://localhost:9001/office?allowPublicKeyRetrieval=true&useSSL=false
@@ -16,3 +16,5 @@ datasource.office.hibernate.show_sql = true
 datasource.office.hibernate.format_sql = true
 datasource.office.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 
+swagger.api.info.title = Office REST API
+swagger.api.info.description = RESTful API (CRUD) для предметной области – офис.

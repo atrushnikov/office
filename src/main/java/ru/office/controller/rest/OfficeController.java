@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static ru.office.util.TableNamesEnum.*;
 
-@Api(tags = "Office Commands")
+@Api(tags = "Office")
 @Slf4j
 @RestController
 @RequestMapping(path = "/api/rest/offices")
