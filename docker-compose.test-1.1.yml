@@ -2,7 +2,7 @@ version: '3.7'
 services:
   mysql:
     image: mysql
-    container_name: office-mysql
+    #container_name: office-mysql
     restart: on-failure
     volumes:
       - ./volumes/db/data:/var/lib/mysql
@@ -13,17 +13,25 @@ services:
       MYSQL_DATABASE: office
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     networks:
-      - office_network
+      - net
+      - logging-net
+
   api:
     image: punk91/office:1.1
-    container_name: office-api
+    #container_name: office-api
     volumes:
       - ./volumes/conf:/usr/src/office/resources
     ports:
       - 8080:8080
     networks:
-      - office_network
+      - net
+      - logging-net
     depends_on:
       - mysql
+
 networks:
-  office_network:
+  net:
+  logging-net:
+    external: 
+      name: logging-net
+

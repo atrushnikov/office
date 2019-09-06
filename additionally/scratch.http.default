@@ -6,8 +6,11 @@
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
 
-### http://localhost:8081/swagger-ui.html
+# DEVELOP #
 
+### http://localhost:8081/swagger-ui.html
+###
+GET http://localhost:8081/api/rest/version
 ###
 GET http://localhost:8081/api/rest/departments
 ###
@@ -40,7 +43,13 @@ Content-Type: application/json
     }
   ]
 }
-
 ###
 GET http://localhost:8081/api/rest/offices/3fe14602-810d-11e9-baee-0242ac120002
+###
+
+
+# TEST #
+
+###
+GET http://localhost:8080/api/rest/version
 ###

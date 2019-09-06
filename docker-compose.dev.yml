@@ -14,7 +14,8 @@ services:
       MYSQL_DATABASE: office
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     networks:
-      - office_network
+      - net
+      - logging-net
 
   api:
     container_name: office-api
@@ -26,13 +27,18 @@ services:
     ports:
       - 8001:8080
     logging:
-      driver: syslog
+      driver: gelf
       options:
-        syslog-address: "tcp://127.0.0.1:5000"
+        gelf-address: "udp://logstash:12201"
+        tag: "intouch-api"
     networks:
-      - office_network
+      - net
+      - logging-net
     depends_on:
       - mysql
 
 networks:
-  office_network:
+  net:
+  logging-net:
+    external:
+      name: logging-net
