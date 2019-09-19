@@ -26,11 +26,6 @@ services:
       - ./volumes/conf:/usr/src/office/resources
     ports:
       - 8001:8080
-    logging:
-      driver: gelf
-      options:
-        gelf-address: "udp://logstash:12201"
-        tag: "intouch-api"
     networks:
       - net
       - logging-net
