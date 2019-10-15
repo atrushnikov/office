@@ -75,6 +75,7 @@ public class AppConfig {
         properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("datasource.office.hibernate.hbm2ddl.method"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("datasource.office.hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("datasource.office.hibernate.format_sql"));
+        properties.put("hibernate.temp.use_jdbc_metadata_defaults", environment.getRequiredProperty("datasource.office.hibernate.temp.use_jdbc_metadata_defaults"));
         if(StringUtils.isNotEmpty(environment.getRequiredProperty("datasource.office.defaultSchema"))){
             properties.put("hibernate.default_schema", environment.getRequiredProperty("datasource.office.defaultSchema"));
         }

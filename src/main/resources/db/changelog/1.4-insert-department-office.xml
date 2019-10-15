@@ -7,13 +7,13 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <property name="uuid_gen" value="UUID_TO_BIN(uuid(), true)" dbms="mysql"/>
-    <property name="department_id_1" value="UUID_TO_BIN('1392bd54-5905-11e9-b572-0242ac130002')"  dbms="mysql"/>
-    <property name="department_id_2" value="UUID_TO_BIN('27bf0237-5934-11e9-b572-0242ac130002')"  dbms="mysql"/>
-    <property name="department_id_3" value="UUID_TO_BIN('60f76a5f-5934-11e9-b572-0242ac130002')"  dbms="mysql"/>
-    <property name="department_id_4" value="UUID_TO_BIN('8a0be692-5934-11e9-b572-0242ac130002')"  dbms="mysql"/>
-    <property name="department_id_5" value="UUID_TO_BIN('f08b484b-8118-11e9-b7a1-0242ac120002')"  dbms="mysql"/>
-    <property name="office_id_1" value="UUID_TO_BIN('ac6a0d60-810c-11e9-baee-0242ac120002')" dbms="mysql"/>
-    <property name="office_id_2" value="UUID_TO_BIN('3fe14602-810d-11e9-baee-0242ac120002')" dbms="mysql"/>
+    <property name="department_id_1" value="uuid('1392bd54-5905-11e9-b572-0242ac130002')"  dbms="postgresql"/>
+    <property name="department_id_2" value="uuid('27bf0237-5934-11e9-b572-0242ac130002')"  dbms="postgresql"/>
+    <property name="department_id_3" value="uuid('60f76a5f-5934-11e9-b572-0242ac130002')"  dbms="postgresql"/>
+    <property name="department_id_4" value="uuid('8a0be692-5934-11e9-b572-0242ac130002')"  dbms="postgresql"/>
+    <property name="department_id_5" value="uuid('f08b484b-8118-11e9-b7a1-0242ac120002')"  dbms="postgresql"/>
+    <property name="office_id_1" value="uuid('ac6a0d60-810c-11e9-baee-0242ac120002')" dbms="postgresql"/>
+    <property name="office_id_2" value="uuid('3fe14602-810d-11e9-baee-0242ac120002')" dbms="postgresql"/>
 
     <changeSet id="8" author="alex">
         <insert tableName="department">

@@ -10,7 +10,7 @@
 
     <changeSet id="4" author="alex">
         <createTable tableName="office">
-            <column name="id" type="binary(16)">
+            <column name="id" type="uuid">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
             <column name="city" type="varchar(255)">

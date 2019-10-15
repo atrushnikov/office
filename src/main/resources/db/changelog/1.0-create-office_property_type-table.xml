@@ -9,14 +9,13 @@
     <changeSet id="2" author="alex">
 
         <createTable tableName="office_property_type">
-            <column name="id" type="int" autoIncrement="true" incrementBy="1" startWith="0">
+            <column name="id" type="int" autoIncrement="true" incrementBy="1" startWith="1">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement tableName="office_property_type" columnName="id" incrementBy="1" columnDataType="int"/>
 
     </changeSet>
 
