@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+
+  api:
+    container_name: office-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./volumes/conf:/usr/src/office/resources
+    ports:
+      - 8082:8080
