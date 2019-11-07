@@ -8,15 +8,15 @@
 
 # DEVELOP #
 
-### http://localhost:8081/swagger-ui.html
+### http://localhost:8081/office/swagger-ui.html
 ###
-GET http://localhost:8081/api/rest/version
+GET http://localhost:8081/office/api/rest/version
 ###
-GET http://localhost:8081/api/rest/departments
+GET http://localhost:8081/office/api/rest/departments
 ###
-GET http://localhost:8081/api/rest/offices?pageNumber=1&batchSize=20
+GET http://localhost:8081/office/api/rest/offices?pageNumber=1&batchSize=20
 ###
-POST http://localhost:8081/api/rest/offices
+POST http://localhost:8081/office/api/rest/offices
 Content-Type: application/json
 
 {
@@ -44,12 +44,19 @@ Content-Type: application/json
   ]
 }
 ###
-GET http://localhost:8081/api/rest/offices/3fe14602-810d-11e9-baee-0242ac120002
+GET http://localhost:8081/office/api/rest/offices/3fe14602-810d-11e9-baee-0242ac120002
+###
+
+
+# LOCAL #
+
+###
+GET http://localhost:8082/office/api/rest/version
 ###
 
 
 # TEST #
 
 ###
-GET http://localhost:8080/api/rest/version
+GET http://localhost:8080/office/api/rest/version
 ###
