@@ -10,7 +10,7 @@
 
     <changeSet id="4" author="alex">
         <createTable tableName="office">
-            <column name="id" type="binary(16)">
+            <column name="id" type="uuid">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
             <column name="city" type="varchar(255)">
@@ -28,17 +28,19 @@
             <column name="value" type="double">
                 <constraints nullable="false"/>
             </column>
+            <column name="create_date" type="DATETIME"/>
+            <column name="updated_date" type="DATETIME"/>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="office"
                                  baseColumnNames="office_category_id"
-                                 constraintName="fk_office-office_category"
+                                 constraintName="fk_office_category"
                                  referencedTableName="office_category"
                                  referencedColumnNames="id"/>
 
         <addForeignKeyConstraint baseTableName="office"
                                  baseColumnNames="office_property_type_id"
-                                 constraintName="fk_office-office_property_type"
+                                 constraintName="fk_office_property_type"
                                  referencedTableName="office_property_type"
                                  referencedColumnNames="id"/>
 

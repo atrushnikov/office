@@ -1,6 +1,8 @@
 HELP.md
 .gradle
-/build/
+/build
+volumes/
+additionally/scratch.http
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###

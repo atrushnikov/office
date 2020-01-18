@@ -2,7 +2,8 @@ package ru.office.configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.util.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,6 +17,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -23,7 +25,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+@Slf4j
 @Configuration
+@EnableScheduling
 @EnableJpaRepositories(basePackages = "ru.office.repository")
 @EnableTransactionManagement
 public class AppConfig {
@@ -47,6 +51,7 @@ public class AppConfig {
     @Bean
     public DataSource dataSource() {
         DataSourceProperties properties = dataSourceProperties();
+        log.info("DataSource url : {} ", properties.getUrl());
         HikariDataSource dataSource = DataSourceBuilder
                 .create(properties.getClassLoader())
                 .driverClassName(properties.getDriverClassName())
@@ -70,6 +75,7 @@ public class AppConfig {
         properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("datasource.office.hibernate.hbm2ddl.method"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("datasource.office.hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("datasource.office.hibernate.format_sql"));
+        properties.put("hibernate.temp.use_jdbc_metadata_defaults", environment.getRequiredProperty("datasource.office.hibernate.temp.use_jdbc_metadata_defaults"));
         if(StringUtils.isNotEmpty(environment.getRequiredProperty("datasource.office.defaultSchema"))){
             properties.put("hibernate.default_schema", environment.getRequiredProperty("datasource.office.defaultSchema"));
         }
@@ -91,6 +97,11 @@ public class AppConfig {
         JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(emf);
         return txManager;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
 }

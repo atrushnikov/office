@@ -1,0 +1,62 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+
+# DEVELOP #
+
+### http://localhost:8081/office/swagger-ui.html
+###
+GET http://localhost:8081/office/api/rest/version
+###
+GET http://localhost:8081/office/api/rest/departments
+###
+GET http://localhost:8081/office/api/rest/offices?pageNumber=1&batchSize=20
+###
+POST http://localhost:8081/office/api/rest/offices
+Content-Type: application/json
+
+{
+  "id": "3fe14602-810d-11e9-baee-0242ac120002",
+  "city": "Москва",
+  "address": "ул. Мира д.11",
+  "officeCategory": {
+    "id": 3,
+    "name": "C"
+  },
+  "officePropertyType": {
+    "id": 2,
+    "name": "rented"
+  },
+  "value": 1.55E8,
+  "departments": [
+    {
+      "id": "27bf0237-5934-11e9-b572-0242ac130002",
+      "name": "Росреестр"
+    },
+    {
+      "id": "f08b484b-8118-11e9-b7a1-0242ac120002",
+      "name": "Пенсионный фонд"
+    }
+  ]
+}
+###
+GET http://localhost:8081/office/api/rest/offices/3fe14602-810d-11e9-baee-0242ac120002
+###
+
+
+# LOCAL #
+
+###
+GET http://localhost:8082/office/api/rest/version
+###
+
+
+# TEST #
+
+###
+GET http://localhost:8080/office/api/rest/version
+###
